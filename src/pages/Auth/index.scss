@@ -1,5 +1,5 @@
 body {
-  background-image: url("../../images/food-bg-login.jpg");
+  background-image: url('../../images/food-bg-login.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -7,22 +7,22 @@ body {
 }
 
 #auth-form {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgb(79 95 118 / 40%);
-    border: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgb(0 0 0 / 80%);
+  border: none;
 
-    #link {
-      display: flex;
-      width: fit-content;
-      margin: auto;
-      cursor:pointer;
-      color:blue;
+  #link {
+    display: flex;
+    width: fit-content;
+    margin: auto;
+    cursor: pointer;
+    color: blue;
 
-      &:hover {
-        opacity: 0.8;
-      }
+    &:hover {
+      opacity: 0.8;
     }
+  }
 }

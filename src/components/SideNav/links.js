@@ -1,10 +1,10 @@
-import { faCirclePlay } from "@fortawesome/free-solid-svg-icons"
+import { faUsers } from "@fortawesome/free-solid-svg-icons"
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const links = [
   {
-    "name": "Start",
-    "icon": faCirclePlay,
+    "name": "Swipe",
+    "icon": faUsers,
     "link": "/"
   },
   {

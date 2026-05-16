@@ -117,9 +117,11 @@ const Register = ({ isLoading, setIsLoading }) => {
         <>
           {/* STEP 1: MANDATORY / AUTH FIELDS */}
           <h2>Create Your Account</h2>
+          <br />
           <Input
             type="text"
             name="first_name"
+            label="First Name"
             placeholder="First Name *"
             change={handleChange}
             value={registerForm.first_name}
@@ -128,6 +130,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="text"
             name="last_name"
+            label="Last Name"
             placeholder="Last Name"
             change={handleChange}
             value={registerForm.last_name}
@@ -136,6 +139,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="email"
             name="email"
+            label="Email Address"
             placeholder="Email *"
             change={handleChange}
             value={registerForm.email}
@@ -145,6 +149,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="password"
             name="password"
+            label="Password"
             placeholder="Password *"
             change={handleChange}
             value={registerForm.password}
@@ -154,6 +159,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="date"
             name="birthdate"
+            label="Birthdate"
             placeholder="Birthdate *"
             change={handleChange}
             value={registerForm.birthdate}
@@ -177,6 +183,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="tel"
             name="phone_number"
+            label="Phone Number"
             placeholder="Phone Number"
             change={handleChange}
             value={registerForm.phone_number}
@@ -186,6 +193,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="text"
             name="location"
+            label="Location"
             placeholder="Location"
             change={handleChange}
             value={registerForm.location}
@@ -195,6 +203,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="number"
             name="height_cm"
+            label="Height (cm)"
             placeholder="Height (cm)"
             change={handleChange}
             value={registerForm.height_cm}
@@ -204,6 +213,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="text"
             name="gender"
+            label="Gender"
             placeholder="Gender"
             change={handleChange}
             value={registerForm.gender}
@@ -213,6 +223,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="text"
             name="interested_in"
+            label="Interested In"
             placeholder="Interested In"
             change={handleChange}
             value={registerForm.interested_in}
@@ -222,6 +233,7 @@ const Register = ({ isLoading, setIsLoading }) => {
           <Input
             type="text"
             name="bio"
+            label="Bio"
             placeholder="Bio"
             change={handleChange}
             value={registerForm.bio}
