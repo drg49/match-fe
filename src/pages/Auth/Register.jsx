@@ -178,7 +178,11 @@ const Register = ({ isLoading, setIsLoading }) => {
       ) : (
         <>
           {/* STEP 2: REMAINING SCHEMA FIELDS */}
-          <h2>Complete Your Profile</h2>
+          <h2>
+            Nice to meet you {registerForm.first_name}! Tell us a bit more about
+            yourself.
+          </h2>
+          <br />
 
           <Input
             type="tel"

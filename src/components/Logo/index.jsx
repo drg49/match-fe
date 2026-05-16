@@ -10,7 +10,7 @@ const Logo = ({ size = '5x' }) => {
   return (
     <div className="app-logo no-select">
       <span>
-        <FontAwesomeIcon icon={faHeart} size={size} color="#a90409" />
+        <FontAwesomeIcon icon={faHeart} size={size} color="#ff0009" />
       </span>
       <h1>Fit Match</h1>
     </div>
