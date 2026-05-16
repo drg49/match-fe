@@ -13,18 +13,24 @@ import { TOAST_POSITIONS } from '../../utils/constants';
 const { BOTTOM_CENTER } = TOAST_POSITIONS;
 
 const Register = ({ isLoading, setIsLoading }) => {
+  // Track the registration step (1: Required Credentials, 2: Remaining Optional Details)
+  const [step, setStep] = useState(1);
+
   const [registerForm, setRegisterForm] = useState({
+    // Step 1 Fields (Required by DB constraints)
     first_name: '',
     last_name: '',
     email: '',
     password: '',
-
-    // 🆕 dating profile fields
     birthdate: '',
+
+    // Step 2 Fields (Remaining schema fields)
+    phone_number: '',
+    bio: '',
     gender: '',
     interested_in: '',
     height_cm: '',
-    bio: '',
+    location: '',
   });
 
   const handleChange = (e) => {
@@ -36,29 +42,39 @@ const Register = ({ isLoading, setIsLoading }) => {
     }));
   };
 
-  const normalizeForm = (form) => ({
+  // Step 1 Data Normalization
+  const normalizeAuthData = (form) => ({
     first_name: capitalizeWords(form.first_name.trim()),
-    last_name: capitalizeWords(form.last_name.trim()),
+    last_name: form.last_name.trim()
+      ? capitalizeWords(form.last_name.trim())
+      : null,
     email: form.email.trim().toLowerCase(),
     password: form.password,
-
     birthdate: form.birthdate,
+  });
+
+  // Step 2 Data Normalization (Remaining fields only)
+  const normalizeProfileData = (form) => ({
+    phone_number: form.phone_number.trim() || null,
+    bio: form.bio?.trim() || null,
     gender: form.gender || null,
     interested_in: form.interested_in || null,
     height_cm: form.height_cm ? Number(form.height_cm) : null,
-    bio: form.bio?.trim() || null,
+    location: form.location.trim() || null,
   });
 
-  const handleSubmit = async (e) => {
+  // Handles Step 1 Submission
+  const handleAuthSubmit = async (e) => {
     e?.preventDefault?.();
-
     if (isLoading) return;
 
+    // Checks fields with "NOT NULL" constraints in your database
     if (
       formContainsEmptyValues({
         first_name: registerForm.first_name,
         email: registerForm.email,
         password: registerForm.password,
+        birthdate: registerForm.birthdate,
       })
     ) {
       notifyError('Please fill required fields', BOTTOM_CENTER);
@@ -67,9 +83,23 @@ const Register = ({ isLoading, setIsLoading }) => {
 
     try {
       setIsLoading(true);
+      await api.register(normalizeAuthData(registerForm));
+      setStep(2);
+    } catch (err) {
+      notifyError(parseError(err), BOTTOM_CENTER);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-      await api.register(normalizeForm(registerForm));
+  // Handles Step 2 Submission
+  const handleProfileSubmit = async (e) => {
+    e?.preventDefault?.();
+    if (isLoading) return;
 
+    try {
+      setIsLoading(true);
+      await api.updateUser(normalizeProfileData(registerForm));
       window.location.reload();
     } catch (err) {
       notifyError(parseError(err), BOTTOM_CENTER);
@@ -79,88 +109,135 @@ const Register = ({ isLoading, setIsLoading }) => {
   };
 
   return (
-    <Form id="register-form" onSubmit={handleSubmit}>
-      {/* AUTH FIELDS */}
-      <Input
-        type="text"
-        name="first_name"
-        placeholder="First Name"
-        change={handleChange}
-        animate
-      />
-      <Input
-        type="text"
-        name="last_name"
-        placeholder="Last Name"
-        change={handleChange}
-        animate
-      />
-      <Input
-        type="email"
-        name="email"
-        placeholder="Email"
-        change={handleChange}
-        animate
-        preventSpaces
-      />
-      <Input
-        type="password"
-        name="password"
-        placeholder="Password"
-        change={handleChange}
-        animate
-        preventSpaces
-      />
+    <Form
+      id="register-form"
+      onSubmit={step === 1 ? handleAuthSubmit : handleProfileSubmit}
+    >
+      {step === 1 ? (
+        <>
+          {/* STEP 1: MANDATORY / AUTH FIELDS */}
+          <h2>Create Your Account</h2>
+          <Input
+            type="text"
+            name="first_name"
+            placeholder="First Name *"
+            change={handleChange}
+            value={registerForm.first_name}
+            animate
+          />
+          <Input
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            change={handleChange}
+            value={registerForm.last_name}
+            animate
+          />
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email *"
+            change={handleChange}
+            value={registerForm.email}
+            animate
+            preventSpaces
+          />
+          <Input
+            type="password"
+            name="password"
+            placeholder="Password *"
+            change={handleChange}
+            value={registerForm.password}
+            animate
+            preventSpaces
+          />
+          <Input
+            type="date"
+            name="birthdate"
+            placeholder="Birthdate *"
+            change={handleChange}
+            value={registerForm.birthdate}
+            animate
+          />
 
-      {/* PROFILE FIELDS */}
-      <Input
-        type="date"
-        name="birthdate"
-        placeholder="Birthdate"
-        change={handleChange}
-        animate
-      />
+          <Button
+            text="Continue"
+            id="register-button"
+            click={handleAuthSubmit}
+            isPrimary
+            isLoading={isLoading}
+            disabled={isLoading}
+          />
+        </>
+      ) : (
+        <>
+          {/* STEP 2: REMAINING SCHEMA FIELDS */}
+          <h2>Complete Your Profile</h2>
 
-      <Input
-        type="number"
-        name="height_cm"
-        placeholder="Height (cm)"
-        change={handleChange}
-        animate
-      />
+          <Input
+            type="tel"
+            name="phone_number"
+            placeholder="Phone Number"
+            change={handleChange}
+            value={registerForm.phone_number}
+            animate
+          />
 
-      <Input
-        type="text"
-        name="gender"
-        placeholder="Gender"
-        change={handleChange}
-        animate
-      />
+          <Input
+            type="text"
+            name="location"
+            placeholder="Location"
+            change={handleChange}
+            value={registerForm.location}
+            animate
+          />
 
-      <Input
-        type="text"
-        name="interested_in"
-        placeholder="Interested In"
-        change={handleChange}
-        animate
-      />
+          <Input
+            type="number"
+            name="height_cm"
+            placeholder="Height (cm)"
+            change={handleChange}
+            value={registerForm.height_cm}
+            animate
+          />
 
-      <Input
-        type="text"
-        name="bio"
-        placeholder="Bio"
-        change={handleChange}
-        animate
-      />
+          <Input
+            type="text"
+            name="gender"
+            placeholder="Gender"
+            change={handleChange}
+            value={registerForm.gender}
+            animate
+          />
 
-      <Button
-        text="Create Account"
-        id="register-button"
-        click={handleSubmit}
-        isPrimary
-        isLoading={isLoading}
-        disabled={isLoading}
-      />
+          <Input
+            type="text"
+            name="interested_in"
+            placeholder="Interested In"
+            change={handleChange}
+            value={registerForm.interested_in}
+            animate
+          />
+
+          <Input
+            type="text"
+            name="bio"
+            placeholder="Bio"
+            change={handleChange}
+            value={registerForm.bio}
+            animate
+          />
+
+          <Button
+            text="Complete Profile"
+            id="profile-button"
+            click={handleProfileSubmit}
+            isPrimary
+            isLoading={isLoading}
+            disabled={isLoading}
+          />
+        </>
+      )}
     </Form>
   );
 };
