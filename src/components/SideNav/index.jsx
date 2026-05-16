@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './index.scss';
 import data from './links';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'; // Imported a logout icon
 import Logo from '../Logo';
-import { useLocation } from 'react-router-dom';
+import { logout } from '../../api/authentication'; // Imported the logout function
 
 const LinkWithIcon = ({ name, icon, link, currentPath }) => {
   const cssClass = `side-nav-link${currentPath === link ? ' active' : ''}`;
@@ -19,8 +20,15 @@ const LinkWithIcon = ({ name, icon, link, currentPath }) => {
 const SideNav = () => {
   const location = useLocation();
 
-  const links = data.map((i) => (
+  const handleLogout = () => {
+    logout();
+    // Optional: Add window.location.href = '/login' or a useHistory/useNavigate hook
+    // here if your logout API doesn't automatically trigger a redirect.
+  };
+
+  const links = data.map((i, index) => (
     <LinkWithIcon
+      key={index} // Added a key prop to fix React's list warning
       name={i.name}
       icon={i.icon}
       link={i.link}
@@ -31,7 +39,18 @@ const SideNav = () => {
   return (
     <nav className="side-nav">
       <Logo size="2x" />
-      {links}
+
+      <div className="side-nav-links-wrapper">{links}</div>
+
+      {/* Logout Button */}
+      <div
+        className="side-nav-link logout-btn"
+        onClick={handleLogout}
+        style={{ cursor: 'pointer' }}
+      >
+        <FontAwesomeIcon icon={faSignOutAlt} />
+        <span className='logout-txt'>Logout</span>
+      </div>
     </nav>
   );
 };
