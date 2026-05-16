@@ -11,7 +11,7 @@ import * as api from '../../api/authentication';
 const { BOTTOM_CENTER } = TOAST_POSITIONS;
 
 const Login = ({ isLoading, setIsLoading }) => {
-  const [loginForm, setLoginForm] = useState({ username: '', password: '' })
+  const [loginForm, setLoginForm] = useState({ email: '', password: '' })
 
   const handleSubmit = () => {
     if(!formContainsEmptyValues(loginForm)) {
@@ -28,9 +28,9 @@ const Login = ({ isLoading, setIsLoading }) => {
   return (
     <Form id='login-form'>
       <Input 
-        type="text"
-        placeholder='Username'
-        name='username'
+        type="email"
+        placeholder='Email'
+        name='email'
         change={handleChange}
         animate
         preventSpaces
