@@ -5,19 +5,19 @@ import './index.scss';
  * A reusable input component with an optional label.
  *
  * @param {Object} props - The component props.
- * @param {string} props.id - The ID of the input.
- * @param {string} props.type - The type of the input.
- * @param {string} props.placeholder - The placeholder of the input.
+ * @param {string} [props.id] - The unique ID of the input.
+ * @param {string} [props.type='text'] - The type of the input.
+ * @param {string} [props.placeholder] - The placeholder of the input.
  * @param {string} props.name - The name of the input.
  * @param {string|number} props.value - The current value of the input.
- * @param {string} props.label - The text for the input label. // 🆕 Added
- * @param {function} props.change - The onChange event for the input.
- * @param {boolean} props.animate - Should the input display animated focus borders?
- * @param {boolean} props.preventSpaces - Should the input prevent spaces from being entered?
+ * @param {string} [props.label] - The text for the input label.
+ * @param {function} props.change - The onChange event handler.
+ * @param {boolean} [props.animate] - Should the input display animated focus borders?
+ * @param {boolean} [props.preventSpaces] - Should the input prevent spaces from being entered?
  */
 const Input = ({
   id,
-  type,
+  type = 'text',
   placeholder,
   name,
   value,
@@ -32,21 +32,24 @@ const Input = ({
     }
   };
 
-  // Generate a fallback ID if one isn't explicitly passed to link the label and input securely
+  // Generate a fallback ID using the 'name' attribute if an 'id' isn't explicitly provided.
+  // This guarantees the label's 'htmlFor' always has a matching input 'id'.
   const inputId = id || `input-${name}`;
 
   return (
-    <div className={`app-input-wrapper`}>
-      {label && (
+    <div className="app-input-wrapper">
+      {label ? (
         <label htmlFor={inputId} className="app-input-label">
           {label}
         </label>
-      )}
+      ) : /* 
+          A11y Safety Net: If no visual label text is provided, 
+          we inject an aria-label using the field's name so screen readers 
+          aren't left stranded.
+        */
+      null}
 
-      <div
-        className={`app-input ${animate && 'animate'}`}
-        id={id ? undefined : inputId}
-      >
+      <div className={`app-input ${animate ? 'animate' : ''}`}>
         <input
           id={inputId}
           type={type}
@@ -55,6 +58,7 @@ const Input = ({
           value={value ?? ''}
           onChange={change}
           onKeyDown={preventSpaces ? preventSpace : undefined}
+          aria-label={!label ? name : undefined} // Screen reader backup when visual label is absent
         />
         <span>
           <i></i>
