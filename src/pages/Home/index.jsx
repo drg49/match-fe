@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
-import { getRestaurants } from '../../api/restuarants';
+import { getProfiles } from '../../api/profiles';
 
 const Home = () => {
-
   useEffect(() => {
-    getRestaurants().then((data) => console.log(data))
-  }, [])
+    getProfiles().then((data) => console.log(data));
+  }, []);
 
   return (
     <>
       <p>This is the home page</p>
     </>
-  )
-}
+  );
+};
 
 export default Home;
