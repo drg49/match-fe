@@ -1,8 +1,11 @@
-.table-top-input {
+.app-input {
   position: relative;
 
   input {
-    font: 15px/24px "Lato", Arial, sans-serif;
+    font:
+      15px/24px 'Lato',
+      Arial,
+      sans-serif;
     color: #333;
     width: 100%;
     box-sizing: border-box;
@@ -10,7 +13,7 @@
     border: 1px solid #ccc;
     padding: 7px 14px 9px;
   }
-  
+
   &.animate {
     input {
       transition: 0.25s;
@@ -18,51 +21,50 @@
 
     input ~ span:before,
     input ~ span:after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 50%;
       width: 0;
       height: 2px;
-      background-color: #3399FF;
+      background-color: #3399ff;
       transition: 0.25s;
     }
-    
+
     input ~ span:after {
       top: auto;
       bottom: 0;
     }
-    
+
     input ~ span i:before,
     input ~ span i:after {
-      content: "";
+      content: '';
       position: absolute;
       top: 50%;
       left: 0;
       width: 2px;
       height: 0;
-      background-color: #3399FF;
+      background-color: #3399ff;
       transition: 0.45s;
     }
-    
+
     input ~ span i:after {
       left: auto;
       right: 0;
     }
-    
+
     input:focus ~ span:before,
     input:focus ~ span:after {
       left: 0;
       width: 100%;
       transition: 0.25s;
     }
-    
+
     input:focus ~ span i:before,
     input:focus ~ span i:after {
       top: 0;
       height: 100%;
       transition: 0.45s;
-    }  
+    }
   }
-
 }

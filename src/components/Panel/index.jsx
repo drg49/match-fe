@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
 
-const closeIcon = <FontAwesomeIcon icon={faClose} size='sm' color='white' />;
+const closeIcon = <FontAwesomeIcon icon={faClose} size="sm" color="white" />;
 
 /**
  * A component that displays a panel with a header, title, and content.
@@ -17,18 +17,18 @@ const closeIcon = <FontAwesomeIcon icon={faClose} size='sm' color='white' />;
  * @param {boolean} props.fixedHeight - Whether the panel has a fixed height.
  */
 const Panel = ({ children, id, size, title, closable, fixedHeight }) => {
-
   return (
-    <div id={id} className={`table-top-panel ${size} ${fixedHeight && 'fixed-height'}`}>
+    <div
+      id={id}
+      className={`app-panel ${size} ${fixedHeight && 'fixed-height'}`}
+    >
       <header>
         <h2>{title}</h2>
-        {closable && <button className='close-btn'>{closeIcon}</button>}
+        {closable && <button className="close-btn">{closeIcon}</button>}
       </header>
-      <div className='table-top-panel-content table-top-scroll'>
-        {children}
-      </div>
+      <div className="app-panel-content app-scroll">{children}</div>
     </div>
-  )
-}
+  );
+};
 
 export default Panel;

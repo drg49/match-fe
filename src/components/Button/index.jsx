@@ -1,9 +1,11 @@
 import React from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import './index.scss';
 
-const spinner = <FontAwesomeIcon icon={faSpinner} className="table-top-button-spinner" spin />
+const spinner = (
+  <FontAwesomeIcon icon={faSpinner} className="app-button-spinner" spin />
+);
 
 /**
  * A reusable button component.
@@ -19,15 +21,15 @@ const Button = ({ text, click, isPrimary, id, isLoading }) => {
   return (
     <button
       onClick={click}
-      className={`table-top-button ${isPrimary && 'primary'}`}
+      className={`app-button ${isPrimary && 'primary'}`}
       id={id}
-      type='button'
+      type="button"
       disabled={isLoading}
     >
       {text}
       {isLoading && spinner}
     </button>
-  )
-}
+  );
+};
 
 export default Button;

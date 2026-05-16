@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import './index.scss';
 
 /**
@@ -10,12 +10,11 @@ import './index.scss';
  * @param {number} props.columns - The number of columns to display the form elements in (1, 2, 3).
  */
 const Form = ({ children, id, columns }) => {
-
   return (
-    <div id={id} className={`table-top-form ${columns || ''}`}>
+    <div id={id} className={`app-form ${columns || ''}`}>
       {children}
     </div>
-  )
-}
+  );
+};
 
 export default Form;

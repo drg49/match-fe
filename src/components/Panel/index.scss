@@ -10,7 +10,7 @@ $header-height: 32px;
   @return $size-dimension - $panel-padding - $header-height;
 }
 
-.table-top-panel {
+.app-panel {
   border: 1px solid $purple-shadow;
   background-color: $grey-blue;
   border-radius: 8px;
@@ -19,7 +19,7 @@ $header-height: 32px;
     width: $small;
     padding: $panel-padding;
 
-    &.fixed-height .table-top-panel-content {
+    &.fixed-height .app-panel-content {
       height: calculate-height($small);
     }
   }
@@ -28,7 +28,7 @@ $header-height: 32px;
     width: $medium;
     padding: $panel-padding;
 
-    &.fixed-height .table-top-panel-content {
+    &.fixed-height .app-panel-content {
       height: calculate-height($medium);
     }
   }
@@ -37,13 +37,12 @@ $header-height: 32px;
     width: $large;
     padding: $panel-padding;
 
-    &.fixed-height .table-top-panel-content {
+    &.fixed-height .app-panel-content {
       height: calculate-height($large);
     }
-    
   }
 
-  .table-top-panel-content {
+  .app-panel-content {
     overflow: auto;
   }
 
@@ -51,7 +50,7 @@ $header-height: 32px;
     margin: 0px;
     color: whitesmoke;
   }
-  
+
   header {
     display: flex;
     justify-content: space-between;

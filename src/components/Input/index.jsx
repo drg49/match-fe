@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import './index.scss';
 
 /**
@@ -13,16 +13,23 @@ import './index.scss';
  * @param {boolean} props.animate - Should the input display animated focus borders?
  * @param {boolean} props.preventSpaces - Should the input prevent spaces from being entered?
  */
-const Input = ({ id, type, placeholder, name, change, animate, preventSpaces }) => {
-
+const Input = ({
+  id,
+  type,
+  placeholder,
+  name,
+  change,
+  animate,
+  preventSpaces,
+}) => {
   const preventSpace = (e) => {
-    if (e.key === " ") {
+    if (e.key === ' ') {
       e.preventDefault();
     }
   };
 
   return (
-    <div className={`table-top-input ${animate && 'animate'}`} id={id}>
+    <div className={`app-input ${animate && 'animate'}`} id={id}>
       <input
         type={type}
         placeholder={placeholder}
@@ -34,7 +41,7 @@ const Input = ({ id, type, placeholder, name, change, animate, preventSpaces }) 
         <i></i>
       </span>
     </div>
-  )
-}
+  );
+};
 
 export default Input;
